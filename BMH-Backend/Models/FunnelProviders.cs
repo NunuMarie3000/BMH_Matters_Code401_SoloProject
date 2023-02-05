@@ -1,10 +1,17 @@
 ﻿using Microsoft.Data.SqlClient;
 using System.Globalization;
+using Microsoft.Extensions.Configuration;
+using System.Configuration;
 
 namespace BMH_Backend.Models
 {
   public static class FunnelProviders
   {
+    private static IConfiguration _configuration;
+    //public FunnelProviders(IConfiguration configuration) 
+    //{
+    //  _configuration= configuration;
+    //}
     public static string[] States = new string[]
     {
        "alabama","alaska", "arizona", "arkansas", "california", "colorado", "connecticut", "delaware", "florida", "georgia", "hawaii", "idaho", "illinois", "indiana", "iowa", "kansas", "kentucky", "louisiana", "maine", "maryland", "massachusetts", "michigan", "minnesota", "mississippi", "missouri", "montana", "nebraska", "nevada"
@@ -15,7 +22,7 @@ namespace BMH_Backend.Models
 
     public static List<Provider> GetProviderNames()
     {
-      string connectionString = "Server=tcp:storm-db-server.database.windows.net,1433;Initial Catalog=BmhMatters_App;Persist Security Info=False;User ID=NunuMarie3000;Password=Fairy#01;MultipleActiveResultSets=True;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
+      string connectionString = _configuration.GetConnectionString("AzureDbConnectionString");
 
       // how do i access my connection string without explicitly putting it here?
 
