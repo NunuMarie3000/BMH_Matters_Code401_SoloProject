@@ -17,6 +17,8 @@ namespace BMH_Backend.Models
     {
       string connectionString = "Server=tcp:storm-db-server.database.windows.net,1433;Initial Catalog=BmhMatters_App;Persist Security Info=False;User ID=NunuMarie3000;Password=Fairy#01;MultipleActiveResultSets=True;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
 
+      // how do i access my connection string without explicitly putting it here?
+
       for (int i = 0; i < States.Length; i++)
       {
         SqlConnection con = new SqlConnection(connectionString);
