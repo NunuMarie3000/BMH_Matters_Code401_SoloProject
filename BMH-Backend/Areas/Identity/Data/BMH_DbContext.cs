@@ -1,5 +1,7 @@
 ﻿using BMH_Backend.Areas.Identity.Data;
+using BMH_Backend.Classes;
 using BMH_Backend.Models;
+using BMH_Backend.Classes;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.Data.SqlClient;

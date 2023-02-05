@@ -354,3 +354,6 @@ appsettings.json
 
 # Migrations
 Migrations/
+
+#FunnelProvider
+Classes/
