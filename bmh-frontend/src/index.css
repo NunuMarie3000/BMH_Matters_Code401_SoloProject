@@ -1,0 +1,26 @@
+body{
+  /* background-color: #492A22; */
+  /* background-image: linear-gradient(to bottom left,#B77742,#492A22,#492A22, #B77742); */
+  background-size: cover;
+  height:'100%';
+  /* font-family: 'Neuton', serif; */
+  /* font-family: 'Lato', sans-serif; */
+  font-family: 'Unbounded', cursive;
+}
+
+.hamburger{
+  display: flex;
+  align-items: flex-end;
+  flex-direction: column;
+  cursor: pointer;
+  margin: 1vh 0 0 0;
+}
+
+.line{
+  display: block;
+  width:7vw;
+  height: .5vh;
+  margin: .5vh 1vw;
+  /* -webkit-transition: all 0.3s ease-in-out; */
+  background-color: white;
+}
