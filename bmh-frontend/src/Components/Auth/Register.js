@@ -12,7 +12,7 @@ export default function Register({ setUserId, setIsNewUser, getUserPrimary }) {
   const [birthday, setbirthday] = useState('');
   const [password, setpassword] = useState('');
   const [password2, setpassword2] = useState('');
-  const [isValid, setisValid] = useState(false);
+  // const [isValid, setisValid] = useState(false);
 
   const clearForm = () => {
     setfname('');
@@ -89,7 +89,7 @@ export default function Register({ setUserId, setIsNewUser, getUserPrimary }) {
           </Form.Group>
           <Form.Group className="mb-3" controlId="ConfirmPassword">
             <Form.Label>ConfirmPassword</Form.Label>
-            <Form.Control required value={password} onChange={(e) => setpassword2(e.target.value)} isValid={isValid} type="password" />
+            <Form.Control required value={password2} onChange={(e) => setpassword2(e.target.value)} type="password" />
           </Form.Group>
 
           <Form.Group className="mb-3" controlId="Birthday">
