@@ -15,10 +15,10 @@ export default function Crisis() {
   }
   const textTrevorProject = () => {
     if (navigator.userAgent.match(/Android/i)) {
-      window.open('sms://678-678&body="START"')
+      window.open('sms://678-678&body=START')
     }
     if (navigator.userAgent.match(/iPhone/i)) {
-      window.open('sms://678-678&body="START"')
+      window.open('sms://678-678&body=START')
     }
   }
   return (
