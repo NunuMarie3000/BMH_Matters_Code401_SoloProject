@@ -3,20 +3,22 @@ import React from 'react'
 export default function Crisis() {
   const callBlackline = () => {
     // window.open("tel:+18006045841");
-    var result = window.confirm("Call Blackline Hotline?");
-    result && window.open("tel:+1-800-604-5841");
+    // var result = window.confirm("Call Blackline Hotline?");
+    // result && window.open("tel:+1-800-604-5841");
+    window.open("tel:+1-800-604-5841");
   }
 
   const callTrevorProject = () => {
-    var result = window.confirm("Call the Trevor Project?")
-    result && window.open("tel:1-866-488-7386");
+    // var result = window.confirm("Call the Trevor Project?")
+    // result && window.open("tel:1-866-488-7386");
+    window.open("tel:1-866-488-7386");
   }
   const textTrevorProject = () => {
     if (navigator.userAgent.match(/Android/i)) {
-      window.open('sms://678-678')
+      window.open('sms://678-678&body="START"')
     }
     if (navigator.userAgent.match(/iPhone/i)) {
-      window.open('sms://678-678')
+      window.open('sms://678-678&body="START"')
     }
   }
   return (

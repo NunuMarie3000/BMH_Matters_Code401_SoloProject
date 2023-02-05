@@ -15,13 +15,7 @@ export default function Login({ setUserId, getUserPrimary, setIsNewUser }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoggingIn(true);
-    // const url = `${process.env.REACT_APP_SERVER}/api/login/${email}/${password}`;
-    // okay, so this should probs make a get request to the server with the email and password, i can check like var confirmedUser =_context.Users.where(u => u.Email == email && u.Password == password)
-    // if confirmedUser != null, send back a yep! log them in else, nope, you cannot log in, 
-    // if null, i can render a "is that the correct password?" or something like that
-
-    // but if it is a valid user, i probably wanna send that user's data down so i can render out the rest of the app, right? name, email, etc. plus fav healthcare, etc.
-    // i could honestly just send back the user's userId, then i could make separate requests depending on when i needed them
+   
     try {
       const url = `${process.env.REACT_APP_SERVER}/api/login/${email}/${password}`;
       // let axiosConfig = {
@@ -39,6 +33,8 @@ export default function Login({ setUserId, getUserPrimary, setIsNewUser }) {
       setIsLoggingIn(false);
     } catch (error) {
       console.log(error);
+      alert("Login error, please try again later");
+      window.open("/");
     }
   }
 

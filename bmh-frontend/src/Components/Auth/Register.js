@@ -59,6 +59,8 @@ export default function Register({ setUserId, setIsNewUser, getUserPrimary }) {
       // although i have the user data now, if the post request returns 201 created, i need to send the data back, or create a get request to get the user's info so i can scaffold out the data for them and start being able to save it all
     } catch (error) {
       console.log(error);
+      alert("Registration error, please try again later");
+      window.open("/");
     }
   }
 

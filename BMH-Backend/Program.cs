@@ -8,7 +8,7 @@ builder.Services.AddCors(options =>
 {
   options.AddPolicy("MyPolicy",
     a => a
-    .WithOrigins("https://localhost:3000", "http://localhost:3000")
+    .WithOrigins("https://localhost:3000", "http://localhost:3000", "https://bmh-matters.netlify.app")
     .AllowAnyMethod()
     .AllowAnyHeader());
 });
