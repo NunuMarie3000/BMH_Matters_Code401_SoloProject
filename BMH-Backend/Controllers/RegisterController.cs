@@ -31,7 +31,7 @@ namespace BMH_Backend.Controllers
     public string Register( [Bind("FirstName,LastName,Email,Password,Birthday,Id")] ApplicatonUser user )
     {
       // i should probably check to see if the email and password is already associated with an account
-      var possibleUser = _context.Users.Where(u => u.Email == user.Email && u.Password == user.Password);
+      var possibleUser = _context.Users.Where(u => u.Email == user.Email && u.Password == user.Password).FirstOrDefault();
       if (possibleUser == null)
       {
         // this is where i'll register new users
