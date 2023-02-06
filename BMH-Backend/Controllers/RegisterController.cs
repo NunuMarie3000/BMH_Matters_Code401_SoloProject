@@ -31,61 +31,63 @@ namespace BMH_Backend.Controllers
     public string Register( [Bind("FirstName,LastName,Email,Password,Birthday,Id")] ApplicatonUser user )
     {
       // i should probably check to see if the email and password is already associated with an account
-      var doesUserAlreadyExist = UserExists(user.Email, user.Password);
-      if (doesUserAlreadyExist)
+      var possibleUser = _context.Users.Where(u => u.Email == user.Email && u.Password == user.Password);
+      if (possibleUser == null)
       {
-        return "UserExists";
-      }
-      // this is where i'll register new users
-      if (ModelState.IsValid)
-      {
-        var newUser = CreateUser();
-        newUser.Id = Guid.NewGuid().ToString();
-        newUser.Email = user.Email;
-        newUser.Password = user.Password;
-        newUser.FirstName = user.FirstName;
-        newUser.LastName = user.LastName;
-        newUser.Birthday = (DateTime)user.Birthday;
+        // this is where i'll register new users
+        if (ModelState.IsValid)
+        {
+          var newUser = CreateUser();
+          newUser.Id = Guid.NewGuid().ToString();
+          newUser.Email = user.Email;
+          newUser.Password = user.Password;
+          newUser.FirstName = user.FirstName;
+          newUser.LastName = user.LastName;
+          newUser.Birthday = (DateTime)user.Birthday;
 
-        _context.Users.Add(newUser);
+          _context.Users.Add(newUser);
 
-        // create new instance of UserEntry and UserProvider and add
-        var newUserEntry = new UserEntry();
-        newUserEntry.Id = Guid.NewGuid().ToString();
-        newUserEntry.UserId = newUser.Id;
-        newUserEntry.Entries = new List<Entry>();
-        // save to context
-        _context.UserEntries.Add(newUserEntry);
+          // create new instance of UserEntry and UserProvider and add
+          var newUserEntry = new UserEntry();
+          newUserEntry.Id = Guid.NewGuid().ToString();
+          newUserEntry.UserId = newUser.Id;
+          newUserEntry.Entries = new List<Entry>();
+          // save to context
+          _context.UserEntries.Add(newUserEntry);
 
-        var newUserProvider = new UserProvider();
-        newUserProvider.Id = Guid.NewGuid().ToString();
-        newUserProvider.UserId = newUser.Id;
-        newUserProvider.Providers = new List<Provider>();
-        // save to context
-        _context.UserProviders.Add(newUserProvider);
+          var newUserProvider = new UserProvider();
+          newUserProvider.Id = Guid.NewGuid().ToString();
+          newUserProvider.UserId = newUser.Id;
+          newUserProvider.Providers = new List<Provider>();
+          // save to context
+          _context.UserProviders.Add(newUserProvider);
 
-        // add to user
-        newUser.UserProviderId = newUserProvider.Id;
-        newUser.UserEntryId = newUserEntry.Id;
+          // add to user
+          newUser.UserProviderId = newUserProvider.Id;
+          newUser.UserEntryId = newUserEntry.Id;
 
-        // create default entry
-        var FirstEntry = new Entry();
-        FirstEntry.Id = Guid.NewGuid().ToString();
-        FirstEntry.UserId = newUser.Id;
-        FirstEntry.Title = "Your first Journal Entry!";
-        FirstEntry.Body = "Welcome to bmh matters! This is your journal page, you can write down any thoughts or feeling you have, whether that be about your mental health journey, or even what you had for lunch! It's all up to you!";
-        FirstEntry.DateCreated = DateTime.Now;
-        // save to context
-        _context.Entries.Add(FirstEntry);
+          // create default entry
+          var FirstEntry = new Entry();
+          FirstEntry.Id = Guid.NewGuid().ToString();
+          FirstEntry.UserId = newUser.Id;
+          FirstEntry.Title = "Your first Journal Entry!";
+          FirstEntry.Body = "Welcome to bmh matters! This is your journal page, you can write down any thoughts or feeling you have, whether that be about your mental health journey, or even what you had for lunch! It's all up to you!";
+          FirstEntry.DateCreated = DateTime.Now;
+          // save to context
+          _context.Entries.Add(FirstEntry);
 
-        // add default entry to the user's entries
-        newUserEntry.Entries.Add(FirstEntry);
-        _context.SaveChanges();
+          // add default entry to the user's entries
+          newUserEntry.Entries.Add(FirstEntry);
+          _context.SaveChanges();
 
-        return newUser.Id;
+          return newUser.Id;
+        }
+        else
+          return "InvalidModelState";
       }
       else
-        return "InvalidModelState";
+        return "UserExists";
+      
     }
 
     [HttpGet]
