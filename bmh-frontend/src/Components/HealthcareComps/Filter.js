@@ -39,7 +39,7 @@ export default function Filter({ providerData, setFilteredData }) {
       {/* here is where i'll build my filter/search bar, for now, we'll only be filtering by state */}
       <Form style={{ marginBottom: '1.5vh' }}>
         <Form.Label>Search Mental Health Providers by State</Form.Label>
-        <Form.Select defaultValue='all' onChange={handleChange}>
+        <Form.Select style={{width:'50%', overflow:'scroll'}} defaultValue='all' onChange={handleChange}>
           <option value="all">All States</option>
           {states.map((s) => <option key={states.indexOf(s)} value={s}>{s}</option>)}
         </Form.Select>

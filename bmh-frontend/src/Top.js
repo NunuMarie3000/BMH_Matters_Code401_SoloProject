@@ -13,7 +13,7 @@ export default function Top() {
   }
 
   const getUserPrimary = async (id) => {
-    const url = `${process.env.REACT_APP_SERVER}/api/user/${id}`
+    const url = `${process.env.REACT_APP_SERVER}/user/${id}`
     try{
       const response = await axios.get(url);
       setUserData(response.data);

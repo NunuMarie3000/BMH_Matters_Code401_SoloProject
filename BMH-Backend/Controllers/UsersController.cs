@@ -1,5 +1,6 @@
 ﻿using BMH_Backend.Areas.Identity.Data;
 using BMH_Backend.Models;
+using BMH_Backend.Models.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -7,20 +8,21 @@ using Microsoft.Extensions.Logging.Abstractions;
 
 namespace BMH_Backend.Controllers
 {
-  //[Route("api/[controller]")]
   [ApiController]
   public class UsersController: ControllerBase
   {
     private readonly BMH_DbContext _context;
+    private readonly IImageService _imageService;
 
-    public UsersController(BMH_DbContext context)
+    public UsersController(BMH_DbContext context, IImageService imageService)
     {
       _context = context;
+      _imageService = imageService;
     }
 
 
     [HttpGet]
-    [Route("api/user/{id}")]
+    [Route("user/{id}")]
     public async Task<ApplicatonUser> GetUserById(string id)
     {
       // this is where i wanna return user info
@@ -37,7 +39,7 @@ namespace BMH_Backend.Controllers
 
     // get all users' fav providers
     [HttpGet]
-    [Route("api/{userId}/providers")]
+    [Route("{userId}/providers")]
     public List<Provider> GetUserProviders(string userId)
     {
       var userProviders = _context.UserProviders.Where(up => up.UserId == userId).Include(up=>up.Providers).FirstOrDefault();
@@ -54,7 +56,7 @@ namespace BMH_Backend.Controllers
 
     // route to add provider to user
     [HttpPut]
-    [Route("api/{userId}/{providerId}")]
+    [Route("{userId}/{providerId}")]
     public async Task<Provider> AddOrRemoveProviderFromUserList(string userId, string providerId)
     {
       var userProvider = await _context.UserProviders.Where(up => up.UserId== userId).FirstOrDefaultAsync();
@@ -78,7 +80,7 @@ namespace BMH_Backend.Controllers
 
     // route to remove provider from user
     [HttpDelete]
-    [Route("api/{userId}/{providerId}")]
+    [Route("{userId}/{providerId}")]
     public async Task<IActionResult> RemoveProviderFromUser( string userId, string providerId )
     {
       var userProvider = await _context.UserProviders.Where(up => up.UserId == userId).FirstOrDefaultAsync();

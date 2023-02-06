@@ -5,7 +5,7 @@ import Entries from './JournalComps/Entries'
 export default function Journal({ userEntries, getUserEntries, userId }) {
   return (
     <>
-      <div style={{margin:'0 5vw 10vh 5vw', height:'100vh', color:'#F7EBDF'}}>
+      <div style={{margin:'0 5vw 5vh 5vw', height:'100vh'}}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <h2 style={{}}>Journal Entries</h2>
           <AddEntry userId={userId} getUserEntries={getUserEntries} />

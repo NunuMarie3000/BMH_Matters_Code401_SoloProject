@@ -11,88 +11,87 @@ using Microsoft.AspNetCore.Cors;
 
 namespace BMH_Backend.Controllers
 {
-  public class MentalHealthTipsController: Controller
+  public class DailyGreetingsController: Controller
   {
     private readonly BMH_DbContext _context;
 
-    public MentalHealthTipsController( BMH_DbContext context )
+    public DailyGreetingsController( BMH_DbContext context )
     {
       _context = context;
     }
 
     [HttpGet]
-    [Route("mentalhealthtips")]
+    [Route("greetings")]
     [EnableCors("MyPolicy")]
-    // GET: MentalHealthTips
-    public async Task<List<MentalHealthTip>> Index()
+    public async Task<List<DailyGreeting>> Index()
     {
-      return await _context.MentalHealthTips.ToListAsync();
+      return await _context.DailyGreetings.ToListAsync();
     }
 
-    // GET: MentalHealthTips/Details/5
+    // GET: DailyGreetings/Details/5
     public async Task<IActionResult> Details( string id )
     {
-      if (id == null || _context.MentalHealthTips == null)
+      if (id == null || _context.DailyGreetings == null)
       {
         return NotFound();
       }
 
-      var mentalHealthTip = await _context.MentalHealthTips
+      var dailyGreeting = await _context.DailyGreetings
           .FirstOrDefaultAsync(m => m.Id == id);
-      if (mentalHealthTip == null)
+      if (dailyGreeting == null)
       {
         return NotFound();
       }
 
-      return View(mentalHealthTip);
+      return View(dailyGreeting);
     }
 
-    // GET: MentalHealthTips/Create
+    // GET: DailyGreetings/Create
     public IActionResult Create()
     {
       return View();
     }
 
-    // POST: MentalHealthTips/Create
+    // POST: DailyGreetings/Create
     // To protect from overposting attacks, enable the specific properties you want to bind to.
     // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Create( [Bind("Id,Body,UploadDate")] MentalHealthTip mentalHealthTip )
+    public async Task<IActionResult> Create( [Bind("Id,Body")] DailyGreeting dailyGreeting )
     {
       if (ModelState.IsValid)
       {
-        _context.Add(mentalHealthTip);
+        _context.Add(dailyGreeting);
         await _context.SaveChangesAsync();
         return RedirectToAction(nameof(Index));
       }
-      return View(mentalHealthTip);
+      return View(dailyGreeting);
     }
 
-    // GET: MentalHealthTips/Edit/5
+    // GET: DailyGreetings/Edit/5
     public async Task<IActionResult> Edit( string id )
     {
-      if (id == null || _context.MentalHealthTips == null)
+      if (id == null || _context.DailyGreetings == null)
       {
         return NotFound();
       }
 
-      var mentalHealthTip = await _context.MentalHealthTips.FindAsync(id);
-      if (mentalHealthTip == null)
+      var dailyGreeting = await _context.DailyGreetings.FindAsync(id);
+      if (dailyGreeting == null)
       {
         return NotFound();
       }
-      return View(mentalHealthTip);
+      return View(dailyGreeting);
     }
 
-    // POST: MentalHealthTips/Edit/5
+    // POST: DailyGreetings/Edit/5
     // To protect from overposting attacks, enable the specific properties you want to bind to.
     // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Edit( string id, [Bind("Id,Body,UploadDate")] MentalHealthTip mentalHealthTip )
+    public async Task<IActionResult> Edit( string id, [Bind("Id,Body")] DailyGreeting dailyGreeting )
     {
-      if (id != mentalHealthTip.Id)
+      if (id != dailyGreeting.Id)
       {
         return NotFound();
       }
@@ -101,12 +100,12 @@ namespace BMH_Backend.Controllers
       {
         try
         {
-          _context.Update(mentalHealthTip);
+          _context.Update(dailyGreeting);
           await _context.SaveChangesAsync();
         }
         catch (DbUpdateConcurrencyException)
         {
-          if (!MentalHealthTipExists(mentalHealthTip.Id))
+          if (!DailyGreetingExists(dailyGreeting.Id))
           {
             return NotFound();
           }
@@ -117,49 +116,49 @@ namespace BMH_Backend.Controllers
         }
         return RedirectToAction(nameof(Index));
       }
-      return View(mentalHealthTip);
+      return View(dailyGreeting);
     }
 
-    // GET: MentalHealthTips/Delete/5
+    // GET: DailyGreetings/Delete/5
     public async Task<IActionResult> Delete( string id )
     {
-      if (id == null || _context.MentalHealthTips == null)
+      if (id == null || _context.DailyGreetings == null)
       {
         return NotFound();
       }
 
-      var mentalHealthTip = await _context.MentalHealthTips
+      var dailyGreeting = await _context.DailyGreetings
           .FirstOrDefaultAsync(m => m.Id == id);
-      if (mentalHealthTip == null)
+      if (dailyGreeting == null)
       {
         return NotFound();
       }
 
-      return View(mentalHealthTip);
+      return View(dailyGreeting);
     }
 
-    // POST: MentalHealthTips/Delete/5
+    // POST: DailyGreetings/Delete/5
     [HttpPost, ActionName("Delete")]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> DeleteConfirmed( string id )
     {
-      if (_context.MentalHealthTips == null)
+      if (_context.DailyGreetings == null)
       {
-        return Problem("Entity set 'BMH_DbContext.MentalHealthTips'  is null.");
+        return Problem("Entity set 'BMH_DbContext.DailyGreetings'  is null.");
       }
-      var mentalHealthTip = await _context.MentalHealthTips.FindAsync(id);
-      if (mentalHealthTip != null)
+      var dailyGreeting = await _context.DailyGreetings.FindAsync(id);
+      if (dailyGreeting != null)
       {
-        _context.MentalHealthTips.Remove(mentalHealthTip);
+        _context.DailyGreetings.Remove(dailyGreeting);
       }
 
       await _context.SaveChangesAsync();
       return RedirectToAction(nameof(Index));
     }
 
-    private bool MentalHealthTipExists( string id )
+    private bool DailyGreetingExists( string id )
     {
-      return _context.MentalHealthTips.Any(e => e.Id == id);
+      return _context.DailyGreetings.Any(e => e.Id == id);
     }
   }
 }

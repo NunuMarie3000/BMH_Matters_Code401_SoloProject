@@ -27,7 +27,7 @@ namespace BMH_Backend.Controllers
     // get all entries by user
     [EnableCors("MyPolicy")]
     [HttpGet]
-    [Route("api/{userId}/entries")]
+    [Route("{userId}/entries")]
     public async Task<List<Entry>> GetAllEntries(string userId)
     {
       var userEntry = await _context.UserEntries.Where(ue=>ue.UserId == userId).Include(ue=>ue.Entries).FirstOrDefaultAsync();
@@ -36,7 +36,6 @@ namespace BMH_Backend.Controllers
         return null;
       }
       var entries = userEntry.Entries;
-      entries.Reverse();
 
       return entries;
     }
@@ -44,7 +43,7 @@ namespace BMH_Backend.Controllers
     // get entry by id
     [EnableCors("MyPolicy")]
     [HttpGet]
-    [Route("api/{userId}/entries/{entryId}")]
+    [Route("{userId}/entries/{entryId}")]
     public Entry GetEntryById(string userId, string entryId)
     {
       var entry = _context.Entries.Where(e=>e.Id == entryId && e.UserId == userId).FirstOrDefault();
@@ -58,7 +57,7 @@ namespace BMH_Backend.Controllers
     // create new entry
     [EnableCors("MyPolicy")]
     [HttpPost]
-    [Route("api/{userId}/newentry")]
+    [Route("{userId}/newentry")]
     public async Task<Entry> CreateNewEntry(string userId, [FromBody][Bind("Title,Body")] NewEntry newentry)
     {
       if(!ModelState.IsValid)
@@ -93,7 +92,7 @@ namespace BMH_Backend.Controllers
     //update entry
     [EnableCors("MyPolicy")]
     [HttpPut]
-    [Route("api/{userId}/entries/{entryId}")]
+    [Route("{userId}/entries/{entryId}")]
     public async Task<Entry> UpdateEntry(string userId, string entryId, [FromBody][Bind("Title,Body")]NewEntry updateMe)
     {
       var entry = await _context.Entries.Where(e => e.Id == entryId && e.UserId == userId).FirstOrDefaultAsync();
@@ -115,7 +114,7 @@ namespace BMH_Backend.Controllers
     // delete entry by id
     [EnableCors("MyPolicy")]
     [HttpDelete]
-    [Route("api/{userId}/entries/{entryId}")]
+    [Route("{userId}/entries/{entryId}")]
     public async Task<IActionResult> DeleteEntryById( string userId, string entryId )
     {
       var entry = await _context.Entries.Where(e => e.Id == entryId && e.UserId == userId).FirstOrDefaultAsync();

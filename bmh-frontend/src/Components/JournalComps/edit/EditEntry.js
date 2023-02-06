@@ -29,7 +29,7 @@ export default function EditEntry({ isEditClicked, toggleEdit, id, title, body, 
 
   const handleSubmit = async(e) =>{
     // i need url route to hit for making post request to update edit entry
-    const url = `${process.env.REACT_APP_SERVER}/api/${userId}/entries/${id}`;
+    const url = `${process.env.REACT_APP_SERVER}/${userId}/entries/${id}`;
     let axiosConfig = {
       headers: {
         'Content-Type': 'application/json;charset=UTF-8',

@@ -13,6 +13,7 @@ export default function RegisterLoginTab({ setUserId, getUserPrimary, setIsNewUs
         activeKey={key}
         onSelect={(k) => setKey(k)}
         className="mb-3"
+        style={{backgroundColor:'rgba(30, 119, 128, .7)'}}
         fill >
         <Tab eventKey="register" title="Register">
           <Register getUserPrimary={getUserPrimary} setIsNewUser={setIsNewUser} setUserId={setUserId} />

@@ -5,7 +5,7 @@ export default function DeleteEntry({ id, userId, getUserEntries, isDeleting, se
   const handleDelete = async () =>{
     try {
       setIsDeleting(true);
-      const url = `${process.env.REACT_APP_SERVER}/api/${userId}/entries/${id}`;
+      const url = `${process.env.REACT_APP_SERVER}/${userId}/entries/${id}`;
       await axios.delete(url);
       getUserEntries();
       setIsDeleting(false);

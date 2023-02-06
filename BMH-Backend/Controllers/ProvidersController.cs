@@ -21,14 +21,14 @@ namespace BMH_Backend.Controllers
     }
 
     [HttpGet]
-    [Route("api/providers")]
+    [Route("providers")]
     public async Task<List<Provider>> GetAllProvider()
     {
       return await _context.Providers.ToListAsync();
     }
 
     [HttpGet]
-    [Route("api/providers/{state}")]
+    [Route("providers/{state}")]
     public async Task<List<Provider>> GetProviderByState(string state)
     {
       string capState = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(state.ToLower());

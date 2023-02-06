@@ -4,8 +4,8 @@ import logoLong from '../images/logoLong.png'
 export default function Header() {
   return (
     <>
-      <div style={{margin:'0vh 0vw 2vh 0vw'}}>
-        <img style={{width:'100%', height:'25vh', display:'inline-block'}} alt="logo" src={logoLong} />
+      <div style={{margin:'0vh 0vw 2vh 0vw', padding:'1vh 2vw', backgroundColor:'#1E7780' }}>
+        <img className='headerImage' alt="logo" src={logoLong} />
       </div>
     </>
   )

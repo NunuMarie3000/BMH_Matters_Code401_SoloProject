@@ -14,7 +14,7 @@ export default function NewEntry({ handleClick, isAddClicked, getUserEntries, us
   const handleSubmit = async (e) => {
     e.preventDefault();
     // const url = "whatever the backend route is for saving new entries to the database"
-    const url = `${process.env.REACT_APP_SERVER}/api/${userId}/newentry`;
+    const url = `${process.env.REACT_APP_SERVER}/${userId}/newentry`;
     // i'll wanna send the title and body of the new entry, i'll also need the user's userId when I create them in the sql database
     const newEntry = {
       userId,

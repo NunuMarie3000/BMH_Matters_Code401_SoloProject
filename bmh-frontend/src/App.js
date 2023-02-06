@@ -21,7 +21,8 @@ export default class App extends Component {
        isHealthcareLoading: false,
        userEntries: null,
        mentalHealthTip:null,
-       userProviders:null
+       userProviders:null,
+       dailyGreeting:null
     }
   }
 
@@ -31,7 +32,7 @@ export default class App extends Component {
 
   getProviderData = async () => {
     this.setState({ isHealthcareLoading: true })
-    const url = `${process.env.REACT_APP_SERVER}/api/providers`;
+    const url = `${process.env.REACT_APP_SERVER}/providers`;
 
     await axios.get(url).then(data => 
       this.setState({providerData : data.data}));
@@ -40,7 +41,7 @@ export default class App extends Component {
 
   getUserEntries = async () =>{
     try {
-      const url = `${process.env.REACT_APP_SERVER}/api/${this.props.userId}/entries`;
+      const url = `${process.env.REACT_APP_SERVER}/${this.props.userId}/entries`;
       const response = await axios.get(url);
       this.setState({ userEntries: response.data })
     } catch (error) {
@@ -59,15 +60,27 @@ export default class App extends Component {
 
   getUserProviders = async() =>{
     try {
-      const url = `${process.env.REACT_APP_SERVER}/api/${this.props.userId}/providers`
+      const url = `${process.env.REACT_APP_SERVER}/${this.props.userId}/providers`
       await axios.get(url).then((res)=>this.setState({ userProviders: res.data }))
     } catch (error) {
       console.log(error.message);
     }
   }
 
+  getDailyGreeting = async() =>{
+    try{
+      const url = `${process.env.REACT_APP_SERVER}/greetings`;
+      const response = await axios.get(url);
+      this.setState({ dailyGreeting: response.data })
+    } catch(error)
+    {
+      console.log(error);
+    }
+  }
+
   componentDidMount(){
     this.getMentalHealthTip();
+    this.getDailyGreeting();
     this.getProviderData();
     this.getUserEntries();
     this.getUserProviders();
@@ -79,12 +92,13 @@ export default class App extends Component {
       {userId !== null && userData !== null && 
 
         <>
+          <div style={{paddingBottom:'150px'}}>
           <Hamburger userData={userData} />
           <Header />
           <Routes>
             <Route path="/" element={
-              this.state.userEntries !== null && this.state.mentalHealthTip !== null && 
-              <Home tip={this.state.mentalHealthTip} lastJournal={this.state.userEntries} userId={userId} userData={userData} />} />
+              this.state.userEntries !== null && this.state.mentalHealthTip !== null && this.state.dailyGreeting !== null &&
+              <Home greeting={this.state.dailyGreeting} tip={this.state.mentalHealthTip} lastJournal={this.state.userEntries} userId={userId} userData={userData} />} />
             <Route path="/crisis" element={
               <CrisisOrResource />} />
             <Route path="/favorites" element={
@@ -95,6 +109,7 @@ export default class App extends Component {
             <Route path="/journal" element={
               <Journal userId={userId} userEntries={this.state.userEntries} getUserEntries={this.getUserEntries} />} />
           </Routes>
+          </div>
           <Navigation />
         </>
       }

@@ -28,7 +28,7 @@ export default class Provider extends Component {
 
   handleFavProvider = async() =>{
     try {
-      const url = `${process.env.REACT_APP_SERVER}/api/${this.props.userId}/${this.props.id}`
+      const url = `${process.env.REACT_APP_SERVER}/${this.props.userId}/${this.props.id}`
       await axios.put(url)
       this.props.getUserProviders();
     } catch (error) {
@@ -38,7 +38,7 @@ export default class Provider extends Component {
 
   handleRemove = async() =>{
     try{
-      const url = `${process.env.REACT_APP_SERVER}/api/${this.props.userId}/${this.props.id}`
+      const url = `${process.env.REACT_APP_SERVER}/${this.props.userId}/${this.props.id}`
       await axios.delete(url)
       this.props.getUserProviders();
     } catch(error)
@@ -56,10 +56,9 @@ export default class Provider extends Component {
     return (
       <>
       {/* here is where i'll render out individual provider information in card format cause it's simple */}
-
       <Card key={id} style={{ border: '5px solid #1E7780', height: '28vh', marginBottom:'1.5vh' }}>
         <Card.Body style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr',columnGap:'1vw' }}>
-          <Card.Img style={{ width: '100%' }} alt={name} src={pic} />
+          <Card.Img className='providerImage' alt={name} src={pic} />
           <div style={{ gridColumn:'2/4', maxWidth:'auto', textAlign:'right' }}>
             <Card.Title style={{fontSize:'2.75vh', fontWeight:'bold'}}>{name}</Card.Title>
             <Card.Subtitle style={{fontSize:'2.5vh'}}>{title}</Card.Subtitle>

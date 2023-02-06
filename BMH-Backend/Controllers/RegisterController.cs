@@ -10,12 +10,11 @@ using System.Text;
 using Microsoft.AspNetCore.Cors;
 using BMH_Backend.Models;
 using Microsoft.EntityFrameworkCore;
+using System.Web;
+using NuGet.Packaging.Signing;
 
 namespace BMH_Backend.Controllers
 {
-
-  //[Route("api/[controller]")]
-  //[EnableCors("myAllowSpecificOrigins")]
   [EnableCors("MyPolicy")]
   [ApiController]
   public class RegisterController: ControllerBase
@@ -26,36 +25,17 @@ namespace BMH_Backend.Controllers
       _context = context;
     }
 
-    //[HttpPost]
-    //[Route("api/register")]
-    //public async Task<ActionResult<User>> PostUser( User user )
-    //{
-    //  _context.User.Add(user);
-    //  try
-    //  {
-    //    await _context.SaveChangesAsync();
-    //  }
-    //  catch (DbUpdateException)
-    //  {
-    //    if (UserExists(user.Id))
-    //    {
-    //      return Conflict();
-    //    }
-    //    else
-    //    {
-    //      throw;
-    //    }
-    //  }
-
-    //  return CreatedAtAction("GetUser", new { id = user.Id }, user);
-    //}
-
-
     [HttpPost]
-    [Route("api/register")]
+    [Route("register")]
     [EnableCors("MyPolicy")]
     public string Register( [Bind("FirstName,LastName,Email,Password,Birthday,Id")] ApplicatonUser user )
     {
+      // i should probably check to see if the email and password is already associated with an account
+      var doesUserAlreadyExist = UserExists(user.Email, user.Password);
+      if (doesUserAlreadyExist)
+      {
+        return "UserExists";
+      }
       // this is where i'll register new users
       if (ModelState.IsValid)
       {
@@ -100,42 +80,38 @@ namespace BMH_Backend.Controllers
 
         // add default entry to the user's entries
         newUserEntry.Entries.Add(FirstEntry);
-
-
-
         _context.SaveChanges();
 
         return newUser.Id;
       }
       else
-        return null;
-
+        return "InvalidModelState";
     }
 
     [HttpGet]
-    [Route("api/login/{email}/{password}")]
+    [Route("login/{email}/{password}")]
     [EnableCors("MyPolicy")]
     public async Task<string> Login( string email, string password )
     {
-      if (ModelState.IsValid)
+      //var doesUserAlreadyExist = UserExists(email, password);
+      //if (doesUserAlreadyExist)
+      //{
+      //  // if true, then the user exits, log them in 
+      //  var user = await _context.Users.Where(u => u.Email == email && u.Password == password).FirstOrDefaultAsync();
+      //  return user.Id;
+      //}
+      if(ModelState.IsValid)
       {
-        //var user = await _context.Users.Where(u => u.Email == userlogin.Email && u.Password == userlogin.Password).Include(u => u.Entries).Include(u => u.Providers).FirstOrDefaultAsync();
-        //var user = _context.Users.Where(u => u.Email == userlogin.Email && u.Password == userlogin.Password).FirstOrDefault();
-        var user = await _context.Users.Where(u => u.Email == email && u.Password == password).FirstOrDefaultAsync();
-
-        if (user != null)
-        {
-          //return something that'll signal a positive login
-          return user.Id;
-        }
-        else
-        {
-          // return something that'll signal a negative login
-          return null;
-        }
+        var user = await _context.Users.Where(u=>u.Email== email && u.Password == password).FirstOrDefaultAsync();
+        if (user == null)
+          return "InvalidUser";
+        return user.Id;
       }
       else
-        return null;
+      {
+        // return something that'll signal a negative login
+        return "InvalidUser";
+      }
     }
 
     private ApplicatonUser CreateUser()
@@ -143,9 +119,9 @@ namespace BMH_Backend.Controllers
       return Activator.CreateInstance<ApplicatonUser>();
     }
 
-    private bool UserExists( string id )
+    private bool UserExists( string email, string password )
     {
-      return _context.User.Any(e => e.Id == id);
+      return _context.Users.Any(u => u.Email == email && u.Password == password);
     }
 
   }
