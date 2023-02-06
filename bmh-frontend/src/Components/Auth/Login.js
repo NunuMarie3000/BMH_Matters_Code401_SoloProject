@@ -20,7 +20,6 @@ export default function Login({ setUserId, getUserPrimary, setIsNewUser }) {
 
     try {
       const url = `${process.env.REACT_APP_SERVER}/login/${email}/${encodeURIComponent(password)}`;
-      console.log(url);
       const response = await axios.get(url);
       // response.data will either return userId, InvalidUser
       if (response.data === "InvalidUser") { invalidUser() }
