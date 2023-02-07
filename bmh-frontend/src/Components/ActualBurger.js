@@ -1,6 +1,6 @@
 import React from 'react'
-import { Navbar, Container } from 'react-bootstrap';
-import lilLogo from '../images/logo.png'
+// import { Navbar, Container } from 'react-bootstrap';
+// import lilLogo from '../images/logo.png'
 
 export default function ActualBurger({ handleShow }) {
   return (
