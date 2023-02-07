@@ -4,12 +4,8 @@ body {
   font-family: 'Unbounded', cursive;
 }
 
-.headerDiv{
-  display: block;
-}
-
 .hamburgerNav{
-  display: none;
+  /* display: none; */
   background-color: #1E7780;
   margin-bottom: 5vh;
 }
@@ -75,17 +71,11 @@ body {
   .hamburgerNav{
     display: block;
   }
-  .headerDiv{
-    display: none;
-  }
 }
 
 @media screen and (min-device-width: 768px) {
   .hamburgerNav{
     display: block;
-  }
-  .headerDiv{
-    display: none;
   }
 
   .line{
@@ -101,7 +91,8 @@ body {
   }
 
   .headerDiv {
-    justify-content: flex-end;
+    justify-content: center;
+    align-items: center;
   }
 
   .headerImage {

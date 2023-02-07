@@ -10,7 +10,7 @@ export default function ActualBurger({ handleShow }) {
         <span className="line"></span>
         <span className="line"></span>
       </div>
-      <Navbar className='hamburgerNav'>
+      {/* <Navbar className='hamburgerNav'>
         <Container>
           <Navbar.Brand style={{display:'flex', alignItems:'center'}}>
             <img
@@ -23,7 +23,7 @@ export default function ActualBurger({ handleShow }) {
             <h1 style={{color:'white'}}>BMH Matters</h1>
           </Navbar.Brand>
         </Container>
-      </Navbar>
+      </Navbar> */}
     </>
   )
 }
