@@ -4,7 +4,30 @@ body {
   font-family: 'Unbounded', cursive;
 }
 
-.providerImage {}
+.headerDiv{
+  display: block;
+}
+
+.hamburgerNav{
+  display: none;
+  background-color: #1E7780;
+  margin-bottom: 5vh;
+}
+
+.providerCard {
+  border: 5px solid #1E7780;
+  height: 28vh;
+  margin-bottom: 1.5vh;
+}
+
+.headerDiv {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 0 2vh 0;
+  padding: 1vh 2vw;
+  background-color: #1E7780;
+}
 
 .headerImage {
   width: 100%;
@@ -40,7 +63,6 @@ body {
   width: 7vw;
   height: .5vh;
   margin: .5vh 1vw;
-  /* -webkit-transition: all 0.3s ease-in-out; */
   background-color: white;
 }
 
@@ -50,12 +72,41 @@ body {
     width: auto;
     /* width: 20vw; */
   }
+  .hamburgerNav{
+    display: block;
+  }
+  .headerDiv{
+    display: none;
+  }
 }
 
 @media screen and (min-device-width: 768px) {
-  .headerImage {
-    /* height: 30vh; */
+  .hamburgerNav{
+    display: block;
+  }
+  .headerDiv{
+    display: none;
+  }
 
+  .line{
+    display: none;
+  }
+
+  .providerCard {
+    height: 35vh;
+  }
+
+  .providerImage {
+    height: 30vh;
+  }
+
+  .headerDiv {
+    justify-content: flex-end;
+  }
+
+  .headerImage {
+    height: 25vh;
+    width: 30vw;
   }
 
   .registerForm {
@@ -66,4 +117,3 @@ body {
     border-radius: 4%/8%;
   }
 }
-

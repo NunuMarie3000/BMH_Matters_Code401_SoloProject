@@ -56,14 +56,14 @@ export default class Provider extends Component {
     return (
       <>
       {/* here is where i'll render out individual provider information in card format cause it's simple */}
-      <Card key={id} style={{ border: '5px solid #1E7780', height: '28vh', marginBottom:'1.5vh' }}>
+      <Card key={id} className='providerCard'>
         <Card.Body style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr',columnGap:'1vw' }}>
           <Card.Img className='providerImage' alt={name} src={pic} />
           <div style={{ gridColumn:'2/4', maxWidth:'auto', textAlign:'right' }}>
             <Card.Title style={{fontSize:'2.75vh', fontWeight:'bold'}}>{name}</Card.Title>
             <Card.Subtitle style={{fontSize:'2.5vh'}}>{title}</Card.Subtitle>
             <Card.Footer style={{display:'flex', justifyContent:'space-between'}}>
-              <div onClick={this.seeMore}>View More</div>
+              <div style={{cursor:'pointer'}} onClick={this.seeMore}>View More</div>
               {window.location.pathname === "/healthcare" && 
               <div onClick={this.handleClick}>{this.state.isLiked ? <i className="fa-solid fa-heart"></i> : <i className="fa-regular fa-heart"></i>}</div>}
               {window.location.pathname === "/favorites" &&
