@@ -97,7 +97,7 @@ body {
 
   .headerImage {
     height: 25vh;
-    width: 30vw;
+    width: 100%;
   }
 
   .registerForm {
